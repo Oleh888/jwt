@@ -13,11 +13,11 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
-    @Value("${jwt.key}")
-    private String jwtKey;
+    @Value("-----BEGIN PUBLIC KEY-----\n${publicKey}\n-----END PUBLIC KEY-----\n")
+    private String publicKey;
 
     @Override
-    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+    public void configure(ResourceServerSecurityConfigurer resources) {
         resources.tokenStore(tokenStore());
     }
 
@@ -29,7 +29,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
 
-        jwtAccessTokenConverter.setSigningKey(jwtKey);
+        jwtAccessTokenConverter.setVerifierKey(publicKey);
 
         return jwtAccessTokenConverter;
     }
