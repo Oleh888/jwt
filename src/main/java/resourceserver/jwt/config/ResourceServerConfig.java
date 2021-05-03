@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import resourceserver.jwt.AdditionalClaimsAccessTokenConverter;
 
 @Configuration
 @EnableResourceServer
@@ -27,7 +28,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     }
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
+        AdditionalClaimsAccessTokenConverter jwtAccessTokenConverter = new AdditionalClaimsAccessTokenConverter();
 
         jwtAccessTokenConverter.setVerifierKey(publicKey);
 
